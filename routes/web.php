@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BudgetImportController;
 use App\Http\Controllers\ProjectController;
-
+use App\Http\Controllers\EstimatedBudgetController;
 // Public Routes
 Route::get('/', function () {
     return view('welcome');
@@ -41,6 +41,19 @@ Route::middleware(['auth', 'admin'])
 
 // Auth Routes (Breeze or Jetstream)
 Route::middleware(['auth'])->group(function () {
+    Route::prefix('user')->name('user.')->middleware('auth')->group(function () {
+
+    Route::get('/estimated-budget/create', [EstimatedBudgetController::class, 'create'])
+         ->name('estimated-budget.create');
+
+    Route::post('/estimated-budget', [EstimatedBudgetController::class, 'store'])
+         ->name('estimated-budget.store');
+
+    Route::get('/estimated-budget/my-list', [EstimatedBudgetController::class, 'myList'])
+         ->name('estimated-budget.my-list');
+    Route::get('/estimated-budget/{id}', [EstimatedBudgetController::class, 'show'])
+     ->name('estimated-budget.show');
+    });
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
