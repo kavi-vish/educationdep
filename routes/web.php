@@ -6,6 +6,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BudgetImportController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\EstimatedBudgetController;
+use App\Http\Controllers\User\ActualBudgetController;
+use App\Http\Controllers\AdminBudgetController;
+
 // Public Routes
 Route::get('/', function () {
     return view('welcome');
@@ -35,13 +38,37 @@ Route::middleware(['auth', 'admin'])
         Route::get('users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
         Route::put('users/{id}', [UserController::class, 'update'])->name('users.update');
         Route::delete('users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-
         
+        // Estimated
+    Route::get('/estimated-budgets', [AdminBudgetController::class, 'estimatedList'])->name('estimated.list');
+    Route::get('/estimated-budgets/{id}', [AdminBudgetController::class, 'estimatedShow'])->name('estimated.show');
+    Route::post('/estimated-budgets/{id}/approve', [AdminBudgetController::class, 'estimatedApprove'])->name('estimated.approve');
+    Route::post('/estimated-budgets/{id}/reject', [AdminBudgetController::class, 'estimatedReject'])->name('estimated.reject');
+
+    // Actual
+    Route::get('/actual-budgets', [AdminBudgetController::class, 'actualList'])->name('actual.list');
+    Route::get('/actual-budgets/{id}', [AdminBudgetController::class, 'actualShow'])->name('actual.show');
+    Route::post('/actual-budgets/{id}/approve', [AdminBudgetController::class, 'actualApprove'])->name('actual.approve');
+    Route::post('/actual-budgets/{id}/reject', [AdminBudgetController::class, 'actualReject'])->name('actual.reject');
+        
+    Route::get('/votes', [AdminBudgetController::class, 'voteManagement'])->name('votes.index');
+    Route::post('/votes/create', [AdminBudgetController::class, 'createVote'])->name('votes.create');
+    Route::post('/votes/fund/add', [AdminBudgetController::class, 'addFund'])->name('votes.fund.add');
     });
 
 // Auth Routes (Breeze or Jetstream)
 Route::middleware(['auth'])->group(function () {
     Route::prefix('user')->name('user.')->middleware('auth')->group(function () {
+    Route::get('/actual-budget/create', [ActualBudgetController::class, 'create'])
+         ->name('actual-budget.create');
+    Route::post('/actual-budget/store', [ActualBudgetController::class, 'store'])
+         ->name('actual-budget.store');
+    Route::get('/actual-budget/my-list', [ActualBudgetController::class, 'myList'])
+         ->name('actual-budget.my-list');
+    Route::get('/actual-budget/{id}', [ActualBudgetController::class, 'show'])
+         ->name('actual-budget.show');
+   
+    
 
     Route::get('/estimated-budget/create', [EstimatedBudgetController::class, 'create'])
          ->name('estimated-budget.create');

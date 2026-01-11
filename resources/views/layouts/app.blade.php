@@ -28,9 +28,9 @@
             @endisset
 
             <!-- Page Content -->
-            <main>
-                @yield('content')
-            </main>
+            <main class="ml-[250px] pt-[64px]">
+    @yield('content')
+</main>
         </div>
     </body>
 </html>

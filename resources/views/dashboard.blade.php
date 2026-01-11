@@ -10,10 +10,20 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{ __("You're logged in as User") }}
-                </div>
+    @auth
+    <h1 class="text-lg font-semibold text-blue-800">
+        Welcome, {{ Auth::user()->name }}!
+    </h1>
+@endauth
+</div>
             </div>
         </div>
     </div>
-</div>
+
+@guest
+    <h1 class="text-lg font-semibold text-blue-800">
+        Welcome to the Application!
+    </h1>
+    <!-- Or just show the logo/title without a name -->
+@endguest
 @endsection

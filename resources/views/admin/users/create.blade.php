@@ -3,7 +3,7 @@
 @section('title', 'Add New User')
 
 @section('content')
-<div class="d-flex">
+<div class="flex">
     @include('admin.partials.sidebar')
 
     <div class="flex-grow-1 p-4 bg-light" style="min-height: 100vh;">

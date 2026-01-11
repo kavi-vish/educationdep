@@ -14,6 +14,8 @@ class ProjectController extends Controller
     {
         $projects = Project::latest()->paginate(50);
         return view('admin.projects', compact('projects'));
+        
+        
     }
 
     public function export()
