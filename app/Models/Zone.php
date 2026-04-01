@@ -6,8 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Zone extends Model
 {
-    protected $table = 'zones';
+    protected $primaryKey = 'zone_id';
+
+    protected $fillable = [
+        'zone_name'
+    ];
+
     public $timestamps = false;
 
-    protected $fillable = ['name'];
+    // Relationship: One zone has many users
+    public function users()
+    {
+        return $this->hasMany(User::class, 'zone_id');
+    }
 }

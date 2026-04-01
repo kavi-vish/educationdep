@@ -76,17 +76,23 @@
                         </div>
 
                         {{-- Zone (optional) --}}
-                        <div class="mb-3">
-                            <label class="form-label">Zone</label>
-                            <select name="zone_id" class="form-select">
-                                <option value="">-- No Zone --</option>
-                                @foreach($zones as $zone)
-                                    <option value="{{ $zone->id }}" {{ old('zone_id') == $zone->id ? 'selected' : '' }}>
-                                        {{ $zone->zone_name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+<div class="mb-3">
+    <label class="form-label">Zone</label>
+    <select name="zone" class="form-select">
+        <option value="">-- No Zone --</option>
+        <option value="galle" {{ old('zone') == 'galle' ? 'selected' : '' }}>Galle</option>
+        <option value="ambalangoda" {{ old('zone') == 'ambalangoda' ? 'selected' : '' }}>Ambalangoda</option>
+        <option value="elipitiya" {{ old('zone') == 'elipitiya' ? 'selected' : '' }}>Elipitiya</option>
+        <option value="udugama" {{ old('zone') == 'udugama' ? 'selected' : '' }}>Udugama</option>
+        <option value="matara" {{ old('zone') == 'matara' ? 'selected' : '' }}>Matara</option>
+        <option value="akurassa" {{ old('zone') == 'akurassa' ? 'selected' : '' }}>Akurassa</option>
+        <option value="mulkirigala" {{ old('zone') == 'mulkirigala' ? 'selected' : '' }}>Mulkirigala</option>
+        <option value="deniyaya" {{ old('zone') == 'deniyaya' ? 'selected' : '' }}>Deniyaya</option>
+        <option value="hambantota" {{ old('zone') == 'hambantota' ? 'selected' : '' }}>Hambantota</option>
+        <option value="tangalle" {{ old('zone') == 'tangalle' ? 'selected' : '' }}>Tangalle</option>
+        <option value="walasmulla" {{ old('zone') == 'walasmulla' ? 'selected' : '' }}>Walasmulla</option>
+    </select>
+</div>
 
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-success">

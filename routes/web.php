@@ -14,6 +14,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/zonal/dashboard', function () {
+        return view('zonal.dashboard');
+    })->name('zonal.dashboard');
+});
+
 Route::get('/dashboard', [UserController::class, 'home'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
@@ -56,7 +62,16 @@ Route::middleware(['auth', 'admin'])
     Route::post('/votes/fund/add', [AdminBudgetController::class, 'addFund'])->name('votes.fund.add');
     });
 
-// Auth Routes (Breeze or Jetstream)
+// ====================== ACCOUNTANT ROUTES ======================
+Route::prefix('accountant')->name('accountant.')->middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\AccountantController::class, 'dashboard'])
+         ->name('dashboard');
+    Route::get('/approved-estimated-budgets', [App\Http\Controllers\AccountantController::class, 'approvedEstimated'])
+         ->name('estimated.approved');
+    Route::get('/approved-estimated-budgets/{id}', [App\Http\Controllers\AccountantController::class, 'showEstimated'])
+     ->name('estimated.show');
+});
+
 Route::middleware(['auth'])->group(function () {
     Route::prefix('user')->name('user.')->middleware('auth')->group(function () {
     Route::get('/actual-budget/create', [ActualBudgetController::class, 'create'])
